@@ -6,7 +6,7 @@
 /*   By: mmitrovi <mmitrovi@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 09:57:49 by mmitrovi          #+#    #+#             */
-/*   Updated: 2026/09/25 12:44:36 by mmitrovi         ###   ########.fr       */
+/*   Updated: 2026/10/09 20:33:57 by mmitrovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,39 +93,31 @@ char	*extract_line(char *stash)
 
 char	*clean_stash(char *stash)
 {
-	char	*new_memory;
-	int		len;
-	int		j;
+	char	*ns;
 	int		i;
+	int		j;
 
-	if (!stash)
-		return (NULL);
 	i = 0;
 	while (stash[i] && stash[i] != '\n')
 		i++;
-	if (stash[i] == '\0')
+	if (!stash[i])
+	{
+		free(stash);
+		return (NULL);
+	}
+	ns = malloc(sizeof(char) * (ft_strlen(stash) - i));
+	if (!ns)
 	{
 		free(stash);
 		return (NULL);
 	}
 	i++;
-	len = ft_strlen(stash) - i;
 	j = 0;
-	new_memory = malloc((len + 1) * sizeof(char));
-	if (!new_memory)
-	{
-		free(stash);
-		return (NULL);
-	}
-	while (stash[i] != '\0')
-	{
-		new_memory[j] = stash[i];
-		i++;
-		j++;
-	}
-	new_memory[j] = '\0';
+	while (stash[i])
+		ns[j++] = stash[i++];
+	ns[j] = '\0';
 	free(stash);
-	return (new_memory);
+	return (ns);
 }
 
 char	*get_next_line(int fd)
@@ -159,3 +151,40 @@ char	*get_next_line(int fd)
 	free(stash);
 	return(line);
 } */
+
+/*char	*clean_stash(char *stash)
+{
+	char	*new_memory;
+	int		len;
+	int		j;
+	int		i;
+
+	if (!stash)
+		return (NULL);
+	i = 0;
+	while (stash[i] && stash[i] != '\n')
+		i++;
+	if (stash[i] == '\0')
+	{
+		free(stash);
+		return (NULL);
+	}
+	i++;
+	len = ft_strlen(stash) - i;
+	j = 0;
+	new_memory = malloc((len + 1) * sizeof(char));
+	if (!new_memory)
+	{
+		free(stash);
+		return (NULL);
+	}
+	while (stash[i] != '\0')
+	{
+		new_memory[j] = stash[i];
+		i++;
+		j++;
+	}
+	new_memory[j] = '\0';
+	free(stash);
+	return (new_memory);
+}*/
