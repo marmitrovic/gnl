@@ -6,7 +6,7 @@
 /*   By: mmitrovi <mmitrovi@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 09:57:49 by mmitrovi          #+#    #+#             */
-/*   Updated: 2026/10/09 20:33:57 by mmitrovi         ###   ########.fr       */
+/*   Updated: 2026/10/09 20:36:20 by mmitrovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,6 @@ char	*read_to_stash(int fd, char *stash)
 	free(buffer);
 	return (stash);
 }
-/*
-I am reading text from a file descriptor some text,
-writing it to the stash. 
-BUFFER_SIZE is the number of bytes the tester wants to check.
-The buffer is a small container that holds these
-bytes with a size of BUFFER_SIZE + 1 (for the \0)
-Why do we need that buffer if we can write it directly in the stash? 
-Because the buffer might contain 2 or 3 '\n',
-which we will need to extract later using the stash.
-We assumebytes_to_read to be 1 at start, but later we assign BUFFER_SIZE to it.
-Then, using the same read function,
-we append data from the fd into the buffer container.
-*/
 
 char	*extract_line(char *stash)
 {
@@ -78,18 +65,6 @@ char	*extract_line(char *stash)
 	line[i] = '\0';
 	return (line);
 }
-
-/*
-	The extrac_line function extracts a string
-	from the stash up to the first \n or \0
-	After determining the length, we allocate memory using malloc
-	The allocation size is calculated as (len + (stash[len] == '\n') + 1);
-	In C, boolean expressions evaluate directly to 1 true or 0 false
-	This allows us to conditionally add space for the \n character 
-	withouth an if statement, while always adding 1
-	extra byte for the null-terminator \0
-
-*/
 
 char	*clean_stash(char *stash)
 {
@@ -151,6 +126,32 @@ char	*get_next_line(int fd)
 	free(stash);
 	return(line);
 } */
+
+/* read fuction: 
+I am reading text from a file descriptor some text,
+writing it to the stash. 
+BUFFER_SIZE is the number of bytes the tester wants to check.
+The buffer is a small container that holds these
+bytes with a size of BUFFER_SIZE + 1 (for the \0)
+Why do we need that buffer if we can write it directly in the stash? 
+Because the buffer might contain 2 or 3 '\n',
+which we will need to extract later using the stash.
+We assumebytes_to_read to be 1 at start, but later we assign BUFFER_SIZE to it.
+Then, using the same read function,
+we append data from the fd into the buffer container.
+*/
+
+/*
+	The extrac_line function extracts a string
+	from the stash up to the first \n or \0
+	After determining the length, we allocate memory using malloc
+	The allocation size is calculated as (len + (stash[len] == '\n') + 1);
+	In C, boolean expressions evaluate directly to 1 true or 0 false
+	This allows us to conditionally add space for the \n character 
+	withouth an if statement, while always adding 1
+	extra byte for the null-terminator \0
+
+*/
 
 /*char	*clean_stash(char *stash)
 {
