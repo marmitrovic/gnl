@@ -6,7 +6,7 @@
 /*   By: mmitrovi <mmitrovi@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 09:57:56 by mmitrovi          #+#    #+#             */
-/*   Updated: 2026/09/25 09:57:58 by mmitrovi         ###   ########.fr       */
+/*   Updated: 2026/10/19 13:01:38 by mmitrovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,3 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif
-
-/*
-
-#include <stdio.h>
-
-
-
-void test_staticka(void)
-{
-	static int a = 0; // Inicijalizuje se SAMO PRVI PUT!
-	a++;
-	printf("%d \n", a);
-}
-
-int main()
-{
-	test_staticka();
-	test_staticka();
-	test_staticka();
-	return 0;
-}
-
-*/
