@@ -6,7 +6,7 @@
 /*   By: mmitrovi <mmitrovi@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 09:57:49 by mmitrovi          #+#    #+#             */
-/*   Updated: 2026/10/19 14:14:11 by mmitrovi         ###   ########.fr       */
+/*   Updated: 2026/10/20 09:41:06 by mmitrovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
  * Then, using the same read function,
  * we append data from the fd into the buffer container.
  * @param fd 
- * @param stash 
- * @return 
+ * @param stash
+ * @return
 */
 char	*read_to_stash(int fd, char *stash)
 {
@@ -122,6 +122,17 @@ char	*clean_stash(char *stash)
 	return (ns);
 }
 
+/** @brief reading fd line by line using static variable 
+ * (that saves extra txt for next time)
+ * why? because read reads more then we want
+ * then extract line will extract as much as we want from stash.
+ * and stash will save extra text for next time
+ *  @param fd just number that represents our file descriptor 
+ * after open function opens and make a file, it returns an int, 
+ * that int is fd, usually one number after 2
+ * bc 0 represents input, 1 output on terminal, 2 output error
+ *  @return after cleaning stash, we return just line
+ */
 char	*get_next_line(int fd)
 {
 	static char	*stash;
