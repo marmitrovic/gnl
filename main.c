@@ -6,7 +6,7 @@
 /*   By: mmitrovi <mmitrovi@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 12:45:00 by mmitrovi          #+#    #+#             */
-/*   Updated: 2026/10/19 13:16:05 by mmitrovi         ###   ########.fr       */
+/*   Updated: 2026/10/22 12:58:46 by mmitrovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ void	test_file(char *filename)
 	printf("TESTIRAM FAJL: %s\n", filename);
 	printf("========================================\n");
 
-	fd = open(filename, O_RDONLY);
+	fd = open(filename, O_RDONLY );
+	// umesto da bude ovde -> 
 	if (fd < 0)
 	{
-		printf("Greska pri otvaranju fajla!\n");
+		//printf("Greska pri otvaranju fajla!\n");
+		perror("open"); //treba da bude ovde? a ovaj printf mogu obrisati?
 		return ;
 	}
 	line_count = 1;
@@ -48,7 +50,10 @@ void	test_file(char *filename)
 		line_count++;
 	}
 	printf("\n--- KRAJ FAJLA (GNL je vratio NULL) ---\n");
-	close(fd);
+	//close(fd);
+	if (close(fd) == -1)
+    	perror("close"); // this is printing error to see did I close or open it right
+	//perror("close"); // ali kako da proverim za close?
 }
 
 int	main(void)
@@ -59,6 +64,8 @@ int	main(void)
 		"one_char.txt",
 		"empty.txt",
 		"no_nl.txt",
+		"newlines.txt",
+		"file_non_existing.txt",
 		NULL // Oznaka za kraj niza
 	};
 

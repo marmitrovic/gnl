@@ -6,13 +6,14 @@
 /*   By: mmitrovi <mmitrovi@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 09:57:49 by mmitrovi          #+#    #+#             */
-/*   Updated: 2026/10/20 09:41:06 by mmitrovi         ###   ########.fr       */
+/*   Updated: 2026/10/22 12:57:41 by mmitrovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/** @brief I am reading text from a file descriptor some text,
+/** @brief I am reading text from a file
+ * descriptor some text,
  * writing it to the stash. 
  * BUFFER_SIZE is the number of bytes the tester wants to check.
  * The buffer is a small container that holds these
@@ -24,7 +25,7 @@
  * BUFFER_SIZE to it.
  * Then, using the same read function,
  * we append data from the fd into the buffer container.
- * @param fd 
+ * @param fd
  * @param stash
  * @return
 */
@@ -58,10 +59,10 @@ char	*read_to_stash(int fd, char *stash)
  * After determining the length, we allocate memory using malloc
  * The allocation size is calculated as (len + (stash[len] == '\n') + 1);
  * In C, boolean expressions evaluate directly to 1 true or 0 false
- * This allows us to conditionally add space for the \n character 
+ * This allows us to conditionally add space for the \n character
  * withouth an if statement, while always adding 1
  * extra byte for the null-terminator \0
- * @param stash 
+ * @param stash
  * @return 
  */
 char	*extract_line(char *stash)
