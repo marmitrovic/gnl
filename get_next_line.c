@@ -12,19 +12,20 @@
 
 #include "get_next_line.h"
 
-/** @brief I am reading text from a file
- * descriptor some text,
- * writing it to the stash. 
+/** @brief I am reading text from a file descriptor some text,
+ * writing it to the stash.
  * BUFFER_SIZE is the number of bytes the tester wants to check.
  * The buffer is a small container that holds these
  * bytes with a size of BUFFER_SIZE + 1 (for the \0)
- * Why do we need that buffer if we can write it directly in the stash? 
+ * Why do we need that buffer if we can write it directly in the stash?
  * Because the buffer might contain 2 or 3 '\n',
  * which we will need to extract later using the stash.
- * We assumebytes_to_read to be 1 at start, but later we assign 
- * BUFFER_SIZE to it.
- * Then, using the same read function,
- * we append data from the fd into the buffer container.
+ * We assume bytes_to_read to be 1 at start, but later we assign
+ * BUFFER_SIZE to it using original read function.
+ * Then, we append data from the stash into the buffer container.
+ * read function returns -1 if the file is O_WRONLY
+ * Free both because if not we will have memory leaks 
+ * old stash I clean in strjoin
  * @param fd
  * @param stash
  * @return
@@ -55,15 +56,15 @@ char	*read_to_stash(int fd, char *stash)
 }
 
 /** @brief The extrac_line function extracts a string
- * from the stash up to the first \n or \0
+ * from the stash up to the first \ n or \0
  * After determining the length, we allocate memory using malloc
  * The allocation size is calculated as (len + (stash[len] == '\n') + 1);
  * In C, boolean expressions evaluate directly to 1 true or 0 false
- * This allows us to conditionally add space for the \n character
+ * This allows us to conditionally add space for the \ n character
  * withouth an if statement, while always adding 1
  * extra byte for the null-terminator \0
  * @param stash
- * @return 
+ * @return
  */
 char	*extract_line(char *stash)
 {
@@ -123,13 +124,13 @@ char	*clean_stash(char *stash)
 	return (ns);
 }
 
-/** @brief reading fd line by line using static variable 
+/** @brief reading fd line by line using static variable
  * (that saves extra txt for next time)
  * why? because read reads more then we want
  * then extract line will extract as much as we want from stash.
  * and stash will save extra text for next time
- *  @param fd just number that represents our file descriptor 
- * after open function opens and make a file, it returns an int, 
+ *  @param fd just number that represents our file descriptor
+ * after open function opens and make a file, it returns an int,
  * that int is fd, usually one number after 2
  * bc 0 represents input, 1 output on terminal, 2 output error
  *  @return after cleaning stash, we return just line
@@ -154,77 +155,3 @@ char	*get_next_line(int fd)
 	stash = clean_stash(stash);
 	return (line);
 }
-/*
-	while ( ft_strchr(stash, '\n'), read == 0)
-	{
-	ssize_t bytes_read = read(fd, buffer, BUFFER_SIZE);
-	buffer[bytes_read] = '\0';
-	stash = ft_strchr(buffer, fd);
-	line = ft_strjoin(buffer, stash);
-	free(buffer);
-	free(stash);
-	return(line);
-} */
-
-/* read fuction: 
-I am reading text from a file descriptor some text,
-writing it to the stash. 
-BUFFER_SIZE is the number of bytes the tester wants to check.
-The buffer is a small container that holds these
-bytes with a size of BUFFER_SIZE + 1 (for the \0)
-Why do we need that buffer if we can write it directly in the stash? 
-Because the buffer might contain 2 or 3 '\n',
-which we will need to extract later using the stash.
-We assumebytes_to_read to be 1 at start, but later we assign BUFFER_SIZE to it.
-Then, using the same read function,
-we append data from the fd into the buffer container.
-*/
-
-/*
-	The extrac_line function extracts a string
-	from the stash up to the first \n or \0
-	After determining the length, we allocate memory using malloc
-	The allocation size is calculated as (len + (stash[len] == '\n') + 1);
-	In C, boolean expressions evaluate directly to 1 true or 0 false
-	This allows us to conditionally add space for the \n character 
-	withouth an if statement, while always adding 1
-	extra byte for the null-terminator \0
-
-*/
-
-/*char	*clean_stash(char *stash)
-{
-	char	*new_memory;
-	int		len;
-	int		j;
-	int		i;
-
-	if (!stash)
-		return (NULL);
-	i = 0;
-	while (stash[i] && stash[i] != '\n')
-		i++;
-	if (stash[i] == '\0')
-	{
-		free(stash);
-		return (NULL);
-	}
-	i++;
-	len = ft_strlen(stash) - i;
-	j = 0;
-	new_memory = malloc((len + 1) * sizeof(char));
-	if (!new_memory)
-	{
-		free(stash);
-		return (NULL);
-	}
-	while (stash[i] != '\0')
-	{
-		new_memory[j] = stash[i];
-		i++;
-		j++;
-	}
-	new_memory[j] = '\0';
-	free(stash);
-	return (new_memory);
-}*/

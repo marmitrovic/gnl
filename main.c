@@ -56,8 +56,33 @@ void	test_file(char *filename)
 	//perror("close"); // ali kako da proverim za close?
 }
 
+void    create_single_file(char *filename, char *content)
+{
+    int fd;
+    
+    // Otvaramo fajl za pisanje, pravimo ga ako ne postoji, brišemo stari sadržaj
+    fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    if (fd >= 0)
+    {
+        // Koristimo tvoj ft_strlen da znamo koliko bajtova upisujemo
+        write(fd, content, ft_strlen(content)); 
+        close(fd);
+    }
+}
+
+void    make_all_test_files(void)
+{
+    create_single_file("test.txt", "Prva linija\nDruga linija\nTreca linija\n");
+    create_single_file("one_char.txt", "A");
+    create_single_file("empty.txt", "");
+    create_single_file("no_nl.txt", "Ovo je tekst bez novog reda na kraju");
+    create_single_file("newlines.txt", "\n\n\n");
+    // "file_non_existing.txt" namerno NE pravimo da bi testirali grešku!
+}
+
 int	main(void)
 {
+	make_all_test_files();
 	// Ovde izlistaš sve svoje .txt fajlove
 	char *files[] = {
 		"test.txt",
