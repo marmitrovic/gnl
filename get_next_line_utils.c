@@ -42,6 +42,13 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
+char	*free_and_null(char *s1, char *s2)
+{
+	free(s1);
+	free(s2);
+	return (NULL);
+}
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
@@ -52,7 +59,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	new_str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!new_str)
-		return (NULL);
+		return (free_and_null(s1, NULL));
 	i = 0;
 	while (s1 && s1[i] != '\0')
 	{
@@ -63,7 +70,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j] != '\0')
 		new_str[i++] = s2[j++];
 	new_str[i] = '\0';
-	if (s1)
-		free(s1);
+	free(s1);
 	return (new_str);
 }

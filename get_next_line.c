@@ -37,19 +37,17 @@ char	*read_to_stash(int fd, char *stash)
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (NULL);
+		return (free_and_null(stash, NULL));
 	bytes_read = 1;
 	while (bytes_read > 0 && !ft_strchr(stash, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-		{
-			free(buffer);
-			free(stash);
-			return (NULL);
-		}
+			return (free_and_null(buffer, stash));
 		buffer[bytes_read] = '\0';
 		stash = ft_strjoin(stash, buffer);
+		if (!stash)
+			break ;
 	}
 	free(buffer);
 	return (stash);
