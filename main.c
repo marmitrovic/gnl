@@ -55,6 +55,25 @@ void	test_file(char *filename)
     	perror("close"); // this is printing error to see did I close or open it right
 	//perror("close"); // ali kako da proverim za close?
 }
+void    create_huge_file(char *filename, int num_lines)
+{
+    int     fd;
+    int     i;
+    char    *line = "Ovo je ogromna linija za testiranje mog GNL-a!\n";
+
+    fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    if (fd >= 0)
+    {
+        i = 0;
+        // Vrtimo petlju 10,000 puta (ili koliko god prosledimo)
+        while (i < num_lines)
+        {
+            write(fd, line, ft_strlen(line));
+            i++;
+        }
+        close(fd);
+    }
+}
 
 void    create_single_file(char *filename, char *content)
 {
@@ -78,6 +97,8 @@ void    make_all_test_files(void)
     create_single_file("no_nl.txt", "Ovo je tekst bez novog reda na kraju");
     create_single_file("newlines.txt", "\n\n\n");
     // "file_non_existing.txt" namerno NE pravimo da bi testirali grešku!
+
+	create_huge_file("test.txt", 10000);
 }
 
 int	main(void)
