@@ -172,6 +172,9 @@ I see now: 1048576
 4. Por el fin, just start the program:
    ```bash
    ./gnl
+5. To check memory leaks use valgrind:
+   ```bash
+   valgrind ./gnl
 ## Explanation
 # what should you see? 
 
