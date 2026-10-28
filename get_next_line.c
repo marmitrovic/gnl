@@ -30,7 +30,7 @@
  * @param stash
  * @return
 */
-char	*read_to_stash(int fd, char *stash)
+static char	*read_to_stash(int fd, char *stash)
 {
 	char	*buffer;
 	ssize_t	bytes_read;
@@ -64,7 +64,7 @@ char	*read_to_stash(int fd, char *stash)
  * @param stash
  * @return
  */
-char	*extract_line(char *stash)
+static char	*extract_line(char *stash)
 {
 	int		i;
 	int		len;
@@ -93,7 +93,7 @@ char	*extract_line(char *stash)
 	return (line);
 }
 
-char	*clean_stash(char *stash)
+static char	*clean_stash(char *stash)
 {
 	char	*ns;
 	int		i;
@@ -138,7 +138,7 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash = read_to_stash(fd, stash);
 	if (!stash)
