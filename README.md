@@ -175,6 +175,17 @@ I see now: 1048576
 5. To check memory leaks use valgrind:
    ```bash
    valgrind ./gnl
+
+## FUN PART
+When you are opening and writing something in a file, you can use "lseek" function from unistd.h, and you can position pointer after writing in it (because write function leaves pointer at the end of the file)
+```bash
+	int fd = open("text.txt", O_CREAT | O_TRUNC | O_RDWR , 0644);
+	write(fd, "HELLO WORLD", 11);
+	lseek(fd, 0, SEEK_SET);
+	printf("my line is: %s", get_next_line(fd););
+	close(fd);
+```
+
 ## Explanation
 # what should you see? 
 
